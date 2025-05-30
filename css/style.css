@@ -3,25 +3,53 @@ body{
     flex-direction: column;
 }
 
+.container,
+.screen, 
+button{
+    border-radius: 10px;
+}
+
 .container{
     box-sizing: border-box;
     padding: 10px;
-    background-color:rgb(1,31,75);
+    background-color:rgb(59,89,152);
     height: 430px;
-    width: 340px
+    width: 340px;
 }
 
 .screen{
     display: flex;
     height: 100px;
     margin: 10px;
-    background-color: rgb(179,205,224);
+    background-color: rgb(247,247,247);
     align-items: center;
     justify-content: center;
 }
 
 .buttons{
     display: flex;
-    flex-direction: column-reverse;
-    color: aliceblue;
+    font-size: 30px;
+    padding: 10px;
+    height:250px;
+    justify-content: center;
+}
+
+.numbers{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#row-2, 
+#row-3, 
+#row-4,
+#row-1{
+    display: flex;
+    gap: 20px;
+}
+
+button{
+    background-color: rgb(139,157,195);
+    padding: 15px 20px;
+    border: solid rgb(139,157,195);
 }
