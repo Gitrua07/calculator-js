@@ -1,0 +1,27 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    box-sizing: border-box;
+    padding: 10px;
+    background-color:rgb(1,31,75);
+    height: 430px;
+    width: 340px
+}
+
+.screen{
+    display: flex;
+    height: 100px;
+    margin: 10px;
+    background-color: rgb(179,205,224);
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column-reverse;
+    color: aliceblue;
+}
