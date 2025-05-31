@@ -1,23 +1,59 @@
+//Selects HTML elements and variable containers
+//for selecting number/operation buttons
 const btn = document.querySelector('.numbers');
 const screen = document.querySelector('.screen');
 let result = undefined;
+let num1 = '';
+let operator1 = undefined;
+let num2 = '';
 
+/**
+ * add(num1,num2)
+ * @param {*} num1 The first number to be added
+ * @param {*} num2 The second number to be added
+ * @returns The sum of two numbers
+ */
 function add(num1, num2){
     return num1 + num2;
 }
 
+/**
+ * subtract(num1, num2)
+ * @param {*} num1 The first number to be subtracted
+ * @param {*} num2 The second number to be subtracted
+ * @returns Two numbers subtracted
+ */
 function subtract(num1, num2){
     return num1 - num2;
 }
 
+/**
+ * multiply(num1, num2)
+ * @param {*} num1 The first number to be multiplied
+ * @param {*} num2 The second number to be multiplied
+ * @returns The product of two numbers
+ */
 function multiply(num1, num2){
     return num1 * num2;
 }
 
+/**
+ * divide(num1, num2)
+ * @param {*} num1 The first number to be divided
+ * @param {*} num2 The second number to be divided
+ * @returns The quotient of two numbers
+ */
 function divide(num1, num2){
     return num1/num2;
 }
 
+/**
+ * operator(num1, operator, num2)
+ * @param {*} num1 The first number in the calculation
+ * @param {*} operator The operand used in the calculation
+ * @param {*} num2 The second number in the calculation
+ * @returns The result of the calculation
+ */
 function operator(num1, operator, num2){
     switch(operator){
         case '+':
@@ -34,15 +70,13 @@ function operator(num1, operator, num2){
     
 }
 
-let num1 = '';
-let operator1 = undefined;
-let num2 = '';
-
+//Event listener outputs a result based on
+//the button that is clicked
 btn.addEventListener('click', (event) =>{
     const value = event.target.textContent.trim();
     const num = Number(value);
 
-    screen.textContent += ` ${value}`;
+    screen.textContent += `${value}`;
 
     if(value == 'C'){
         num1 = '';
