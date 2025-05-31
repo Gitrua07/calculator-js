@@ -6,6 +6,7 @@ let result = undefined;
 let num1 = '';
 let operator1 = undefined;
 let num2 = '';
+let isResult = 0; //0 = No, 1 = Yes
 
 /**
  * add(num1,num2)
@@ -13,7 +14,7 @@ let num2 = '';
  * @param {*} num2 The second number to be added
  * @returns The sum of two numbers
  */
-function add(num1, num2){
+function add(num1, num2) {
     return num1 + num2;
 }
 
@@ -23,7 +24,7 @@ function add(num1, num2){
  * @param {*} num2 The second number to be subtracted
  * @returns Two numbers subtracted
  */
-function subtract(num1, num2){
+function subtract(num1, num2) {
     return num1 - num2;
 }
 
@@ -33,7 +34,7 @@ function subtract(num1, num2){
  * @param {*} num2 The second number to be multiplied
  * @returns The product of two numbers
  */
-function multiply(num1, num2){
+function multiply(num1, num2) {
     return num1 * num2;
 }
 
@@ -43,8 +44,13 @@ function multiply(num1, num2){
  * @param {*} num2 The second number to be divided
  * @returns The quotient of two numbers
  */
-function divide(num1, num2){
-    return num1/num2;
+function divide(num1, num2) {
+    if (num2 == 0) {
+        return 'Not Allowed!';
+    }
+
+    let result = num1 / num2;
+    return result.toFixed(4);
 }
 
 /**
@@ -54,73 +60,97 @@ function divide(num1, num2){
  * @param {*} num2 The second number in the calculation
  * @returns The result of the calculation
  */
-function operator(num1, operator, num2){
-    switch(operator){
+function operator(num1, operator, num2) {
+    switch (operator) {
         case '+':
             return add(num1, num2);
         case '-':
-            return subtract(num1,num2);
+            return subtract(num1, num2);
         case '*':
             return multiply(num1, num2);
         case '/':
-            return divide(num1,num2);
+            return divide(num1, num2);
         default:
             return ' ';
     }
-    
+
 }
 
 //Event listener outputs a result based on
 //the button that is clicked
-btn.addEventListener('click', (event) =>{
-    const value = event.target.textContent.trim();
-    const num = Number(value);
+btn.addEventListener('click', (event) => {
+    if (event.target.tagName == 'BUTTON') {
+        const value = event.target.textContent.trim();
+        const num = Number(value);
 
-    screen.textContent += `${value}`;
+        if(screen.textContent === 'Not Allowed!'){
+            screen.textContent = '';
+        }
+        
 
-    if(value == 'C'){
-        num1 = '';
-        operator1 = undefined;
-        num2 = '';
-        screen.textContent = '';
-    }
-
-    if(value == '=' && num1 != undefined && operator1 != undefined &&
-        num2 != undefined
-    ){
-        result = operator(Number(num1), operator1, Number(num2));
-        screen.textContent = result;
-        operator1 = undefined;
-        num2 = '';
-        num1 = String(result);
-    }
-
-    if(operator1 == undefined && Number.isInteger(num)){
-        num1 += value;
-    }
-    
-    if(operator1 == undefined && num1 != undefined){
-        switch(value){
-            case '×':
-                operator1 = '*';
-                break;
-            case '÷':
-                operator1 = '/';
-                break;
-            case '+':
-                operator1 = '+';
-                break;
-            case '–':
-                operator1 = '-';
-                break;
+        if (value == 'C') {
+            num1 = '';
+            operator1 = undefined;
+            num2 = '';
+            screen.textContent = '';
+            isResult = 0;
         }
 
-    }
+        if (value == '=' && num1 != '' && operator1 != undefined &&
+            num2 != ''
+        ) {
+            result = operator(Number(num1), operator1, Number(num2));
+            screen.textContent = result;
+            if (result == 'Not Allowed!') {
+                num1 = '';
+                operator1 = undefined;
+                num2 = '';
+                isResult = 0;
+            } else {
+                operator1 = undefined;
+                num2 = '';
+                num1 = String(result);
+                isResult = 1;
+            }
+        }
 
-    if(num1!= '' && operator1 != undefined && Number.isInteger(num)){
-        num2 += value;
+        if (operator1 == undefined && Number.isInteger(num)
+            && isResult === 0) {
+            num1 += value;
+            screen.textContent = num1;
+        }else if (operator1 == undefined && Number.isInteger(num)
+            && isResult === 1) {
+            num1 = value;
+            screen.textContent = num1;
+            isResult = 0;
+        }
+
+        if (operator1 === undefined && num1 != '' && num2 == '') {
+            switch (value) {
+                case '×':
+                    screen.textContent += ` ${value} `;
+                    operator1 = '*';
+                    break;
+                case '÷':
+                    screen.textContent += ` ${value} `;
+                    operator1 = '/';
+                    break;
+                case '+':
+                    screen.textContent += ` ${value} `;
+                    operator1 = '+';
+                    break;
+                case '–':
+                    screen.textContent += ` ${value} `;
+                    operator1 = '-';
+                    break;
+            }
+
+        }
+
+        if (num1 != '' && operator1 != undefined && Number.isInteger(num)) {
+            num2 += value;
+            screen.textContent += value;
+        }
     }
-    
-    console.log(`num1: ${num1} num2: ${num2}, operator: ${operator1}, result: ${result}`);
 
 })
